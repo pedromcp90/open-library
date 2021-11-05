@@ -6,6 +6,7 @@ services:
             - "8080:80"
         volumes:
             - ../www:/var/www/html
+            - ./conf/apache/sites/:/etc/apache2/sites-enabled/
         links:
             - db
         networks:
@@ -25,7 +26,7 @@ services:
         - '3306'
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
-            - ./conf:/etc/mysql/conf.d
+            - ./conf/mysql:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
         networks:
           static-network:
