@@ -7,4 +7,5 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip
     
+RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
