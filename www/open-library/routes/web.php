@@ -16,14 +16,22 @@ use App\Http\Controllers\BookController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 //Route::resource('user', UserController::class);
 
 //Add Book Routes
-Route::resource('book', BookController::class);
+Route::resource('book', BookController::class)->middleware('auth');
 
+//Authentication routes
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//The route to the home
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Redirect to the index view in the Book controller
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/home', [BookController::class, 'index'])->name('home');
+});
+
