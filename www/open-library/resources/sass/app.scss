@@ -1,3 +1,4 @@
+/*
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -6,3 +7,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+*/
+// Bootstrap
+@import '../themes/argon/scss/argon.scss';
+@import '../themes/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css'
