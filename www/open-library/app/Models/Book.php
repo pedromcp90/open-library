@@ -12,12 +12,18 @@ class Book extends Model
     //One to one relationship with publisher
     public function publisher()
     {
-        return $this->hasOne('App\Models\Publisher');
+        return $this->hasOne(Publisher::class);
     }
 
     //Many to many relationship with authors
     public function authors()
     {
-        return $this->belongsToMany('App\Models\Author');
+        return $this->belongsToMany(Author::class);
+    }
+
+    //Many to many relationship with categories
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }
