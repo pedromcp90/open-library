@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Author;
 use Illuminate\Database\Seeder;
 
 class AuthorSeeder extends Seeder
@@ -13,6 +14,9 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-        //
+        //Seed the database with 50 authors
+        Author::factory()
+        ->count(50)
+        ->create();
     }
 }
