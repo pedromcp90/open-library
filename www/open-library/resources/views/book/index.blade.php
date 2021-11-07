@@ -34,10 +34,7 @@
                                 <td class="title">{{ $book->title }}</td>
                                 <td class="publication_year">{{ $book->publication_year }}</td>
                                 <td>
-                                    <a class="btn btn-warning" href="{{ url('/book/' . $book->id . '/edit') }}">Edit</a>
-
-                                    |
-
+                                    <a class="btn btn-info" href="{{ url('/book/' . $book->id . '/edit') }}">Edit</a>
                                     <form action="{{ url('book/' . $book->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
