@@ -8,6 +8,7 @@ require('./bootstrap');
 //require('../themes/argon/vendor/js-cookie/js.cookie.js')
 require('../themes/argon/vendor/jquery.scrollbar/jquery.scrollbar.min.js')
 require('../themes/argon/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')
+require('../themes/argon/vendor/select2/dist/js/select2.min.js')
 //require('../themes/argon/vendor/chart.js/dist/Chart.min.js')
 //require('../themes/argon/vendor/chart.js/dist/Chart.extension.js')
 require('../themes/argon/js/argon.js')
