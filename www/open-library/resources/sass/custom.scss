@@ -1,0 +1,24 @@
+.chosen-results{
+    .new-entry-wrapper {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+    }
+}
+
+.new-entry-form-wrapper{
+    display: none;
+    .return-button{
+        display: none;
+    }
+    .form-title{
+        display: none;
+    }
+
+}
+
+.chosen-container{
+    .chosen-drop{
+        z-index: 960;
+    }
+}

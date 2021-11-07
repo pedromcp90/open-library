@@ -20,7 +20,14 @@
                         @foreach ($books as $book)
                             <tr>
                                 <td>
-                                    <img class="img-thumbnail img-fluid" width="100px" src="{{ asset('storage') . '/' . $book->cover_image }}" alt="Book cover">
+                                    @if (empty($book->cover_image))
+                                        <img class="img-thumbnail img-fluid" width="100px"
+                                            src="{{ asset('img') . '/no-book-cover-available.jpg' }}" alt="Book cover">
+                                    @else
+                                        <img class="img-thumbnail img-fluid" width="100px"
+                                            src="{{ asset('storage') . '/' . $book->cover_image }}" alt="Book cover">
+
+                                    @endif
                                 </td>
                                 <td class="id">{{ $book->id }}</td>
                                 <td class="isbn">{{ $book->isbn }}</td>

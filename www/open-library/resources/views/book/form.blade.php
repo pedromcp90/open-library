@@ -1,9 +1,9 @@
 @push('head_scripts')
-<script src="{{ asset('vendor/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
 @endpush
 
 @push('head_styles')
-<link href="{{ asset('vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+
 @endpush
 
 <h1>{{ ucfirst($mode) }} Book</h1>
@@ -32,12 +32,35 @@
 
 <div class="form-group">
     <label for="authors">Author(s)</label>
-    <select id="authors" class="form-control select2" name="authors" multiple>
+    <select id="authors" class="form-control chosen-select authors-select" name="authors[]" multiple>
         @foreach ($authors as $author)
-            <option>{{ $author->name }}</option>
+            {{ $selected = '' }}
+            @if (!empty($selected_authors) && in_array($author->id, $selected_authors))
+                {{ $selected = 'selected' }}
+            @endif
+            <option value="{{ $author->id }}" {{ $selected }}>
+                {{ $author->first_name . ' ' . $author->last_name }}</option>
+        @endforeach
+
+        @php
+            unset($author);
+        @endphp
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="categories">Subject(s)</label>
+    <select id="categories" class="form-control chosen-select categories-select" name="categories[]" multiple>
+        @foreach ($categories as $category)
+            {{ $selected = '' }}
+            @if (!empty($selected_categories) && in_array($category->id, $selected_categories))
+                {{ $selected = 'selected' }}
+            @endif
+            <option value="{{ $category->id }}" {{ $selected }}>{{ $category->name }}</option>
         @endforeach
     </select>
 </div>
+
 
 <div class="form-group">
     <label for="cover_image">Cover Image</label>
