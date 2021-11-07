@@ -80,13 +80,13 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified book.
      *
-     * @param  \App\Models\Book  $book
+     * @param  Int  $bookId
      * @return \Illuminate\Http\Response
      */
     public function edit($bookId)
     {
         $book = Book::findOrFail($bookId);
-        return view('book.edit', compact('book'))->with('message', 'Book updated successfully');
+        return view('book.edit', compact('book'));
     }
 
     /**
@@ -136,7 +136,7 @@ class BookController extends Controller
         Book::where('id', '=', $bookId)->update($bookData);
         $book = Book::findOrFail($bookId);
 
-        return view('book.edit', compact('book'));
+        return redirect('book')->with('message', 'Book updated successfully');
     }
 
     /**
