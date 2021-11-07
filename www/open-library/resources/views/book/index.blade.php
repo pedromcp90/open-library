@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="container">
-
-        <a href="{{ url('/book/create') }}">Create new Book</a>
-
-        @include('layouts.message')
+        @include('layouts.partials.message')
         <div class="table-responsive">
             <div>
                 <table class="table align-items-center">

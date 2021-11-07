@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @include('layouts.message')
+        @include('layouts.partials.message')
         <form action="{{ url('/book/' . $book->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             {{ method_field('PATCH') }}

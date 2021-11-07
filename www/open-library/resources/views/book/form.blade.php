@@ -1,3 +1,11 @@
+@push('head_scripts')
+<script src="{{ asset('vendor/select2/dist/js/select2.min.js')}}"></script>
+@endpush
+
+@push('head_styles')
+<link href="{{ asset('vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+@endpush
+
 <h1>{{ ucfirst($mode) }} Book</h1>
 <div class="form-group">
     <label for="isbn">ISBN</label>
@@ -5,20 +13,32 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">ISBN</span>
         </div>
-        <input name="isbn" id="isbn" type="text" class="form-control" placeholder="ISBN" aria-label="ISBN" value="{{ isset($book->isbn) ? $book->isbn:old('isbn') }}">
+        <input name="isbn" id="isbn" type="text" class="form-control" placeholder="ISBN" aria-label="ISBN"
+            value="{{ isset($book->isbn) ? $book->isbn : old('isbn') }}">
     </div>
 </div>
 
 <div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" name="title" id="title"
-        value="{{ isset($book->title) ? $book->title:old('title') }}">
+        value="{{ isset($book->title) ? $book->title : old('title') }}">
 </div>
 <div class="form-group">
     <label for="publication_year">Publication Year</label>
     <input type="number" class="form-control" name="publication_year" id="publication_year"
-        value="{{ isset($book->publication_year) ? $book->publication_year:old('publication_year') }}">
+        value="{{ isset($book->publication_year) ? $book->publication_year : old('publication_year') }}">
 </div>
+
+
+<div class="form-group">
+    <label for="authors">Author(s)</label>
+    <select id="authors" class="form-control select2" name="authors" multiple>
+        @foreach ($authors as $author)
+            <option>{{ $author->name }}</option>
+        @endforeach
+    </select>
+</div>
+
 <div class="form-group">
     <label for="cover_image">Cover Image</label>
     @if (isset($book) && !empty($book->cover_image))
