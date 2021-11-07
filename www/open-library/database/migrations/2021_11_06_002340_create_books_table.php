@@ -15,11 +15,18 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('isbn', 17);
-            //$table->dateTime('acquisition_date');
+            $table->string('isbn', 17)->unique();
             $table->string('title');
-            $table->unsignedSmallInteger('publication_year')->nullable();;
-            $table->string('cover_image')->nullable();;
+            $table->unsignedSmallInteger('publication_year')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->unsignedBigInteger('publisher_id')->nullable();
+            //$table->unsignedBigInteger('category_id');
+
+            //Add a publishers foreign key with on delete set null
+            $table->foreign('publisher_id')
+            ->references('id')
+            ->on('publishers')
+            ->onDelete('set null');
             $table->timestamps();
         });
     }

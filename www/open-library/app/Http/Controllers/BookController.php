@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create');
+        $data['authors'] = Author::all();
+        return view('book.create', $data);
     }
 
     /**
@@ -55,6 +57,13 @@ class BookController extends Controller
         $this->validate($request, $fields, $errorMessage);
 
         $bookData = $request->except('_token');
+
+        if ($request->has('authors')) {
+            //make author relationships
+            $authors = $request->input('authors');
+            Book::author()->sync($authors);
+        }
+
         if ($request->hasFile('cover_image')) {
             $bookData['cover_image'] = $request->file('cover_image')->store('uploads', 'public');
         }
