@@ -46,5 +46,6 @@
                 </table>
             </div>
         </div>
+        {!! $books->links() !!}
     </div>
 @endsection
