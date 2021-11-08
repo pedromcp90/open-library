@@ -6,10 +6,9 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Rules\CheckValidISBN;
 use Nicebooks\Isbn\IsbnTools;
-use App\Validation\IsbnValidator;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Stmt\TryCatch;
 
 class BookController extends Controller
 {
@@ -50,12 +49,14 @@ class BookController extends Controller
     /**
      * Display the specified book.
      *
-     * @param  \App\Models\Book  $book
+     * @param  Int $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show(Int $bookId)
     {
-        //
+        return view('book.show', [
+            'user' => $bookId
+        ]);
     }
 
     /**
@@ -136,21 +137,55 @@ class BookController extends Controller
 
     private function insertOrUpdate($request, $updateId = false)
     {
+        /**
+         * Initialize currentbook data to make some checks on update
+         */
         $currentBook = NULL;
+
+        /**
+         * Initialize the isbn formatter
+         */
+        $isbnFormatter = new IsbnTools;
+
+        /**
+         * Remove unneded fields
+         */
+        $bookData = $request->except(['_token', '_method', 'authors', 'categories']);
+
+        /**
+         * Format the ISBN and replace its value on the request after validation.
+         * If we do not format it before validating, it will pass the unique validation
+         * since that record does not exist without hypens
+         */
+        if (isset($bookData['isbn'])) {
+            $bookData['isbn'] = $isbnFormatter->format($bookData['isbn']);
+            $request->replace($bookData);
+        }
+
+        /**
+         * Get the current data to make some checks with existing values
+         */
         if (!empty($updateId)) {
-            //Get the current data to make some checks with existing values
             $currentBook = Book::findOrFail($updateId);
         }
 
 
-        $isbnFormatter = new IsbnTools;
-        //validate data
+        /**
+         * Validate data
+         */
         $fields = [
-            'isbn' => ['required', 'string', new IsbnValidator],
+            'isbn' => ['required', 'string', new CheckValidISBN, 'unique:books,isbn'],
             'title' => 'required|string|max:255',
             'publication_year' => 'int|max:99999|nullable',
             'cover_image' => 'max:100000|mimes:jpeg,png,jpg|nullable'
         ];
+
+        /**
+         * If the method is update, ignore the isbn unique check
+         */
+        if ($updateId) {
+            $fields['isbn'] .= ',' . $updateId;
+        }
 
         $errorMessage = [
             'required' => 'The :attribute is required',
@@ -158,35 +193,34 @@ class BookController extends Controller
 
         $this->validate($request, $fields, $errorMessage);
 
-        $bookData = $request->except(['_token', '_method', 'authors', 'categories']);
-
         if ($request->hasFile('cover_image')) {
             if (!empty($updateId)) {
-                //If the request is update we have to make some checks with images
-                //If an image is received then update the cover_image
-                //Check if an image already exists and delete it
+                /**
+                 * If the request is update we have to make some checks with images
+                 * If an image is received then update the cover_image
+                 * Check if an image already exists and delete it
+                 */
+
                 if (!empty($currentBook->cover_image)) {
                     Storage::delete('public/' . $currentBook->cover_image);
                 }
             }
+
+            /**
+             * Store the image
+             */
             $bookData['cover_image'] = $request->file('cover_image')->store('uploads', 'public');
         }
-
-        //Check if th isbn has changed
-        if (empty($updateId) || $currentBook->isbn != $request->isbn) {
-            //The isbn has changed so we need to filter it again
-            $bookData['isbn'] = $isbnFormatter->format($bookData['isbn']);
-        }
-
 
         //If we are updating, then get the existing book to be edited
         $book = empty($updateId) ? new Book() : Book::findOrFail($updateId);
 
-        //Iterate through the fields and set thir values
+        //Iterate through the fields and set their values
         foreach ($bookData as $field => $value) {
             $book->$field = $value;
         }
-        //Save the book an then add relationships
+
+        //Save the book an then add its relationships
         $book->save();
 
         if ($request->has('categories')) {
@@ -200,8 +234,6 @@ class BookController extends Controller
             $authors = $request->input('authors');
             $book->authors()->sync($authors);
         }
-
-
 
         $action = empty($updateId) ? 'created' : 'updated';
 
