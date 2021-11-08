@@ -2,10 +2,6 @@
     <script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
 @endpush
 
-@push('head_styles')
-
-@endpush
-
 <h1 class="form-title">{{ ucfirst($mode) }} Author</h1>
 
 <div class="form-group">
