@@ -2,6 +2,8 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 import Cookies from '../themes/argon/vendor/js-cookie/js.cookie.js'
 window.Cookies = Cookies;
+import Pluralize from '../vendor/pluralize';
+window.Pluralize = Pluralize;
 
 require('./bootstrap');
 //require('../themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')
