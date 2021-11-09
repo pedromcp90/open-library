@@ -1,5 +1,4 @@
-environment/logs
-environment/scripts/setup.sh
 environment/Makefile
-environment/dk
 TODO.md
+environment/logs/open-library/error.log
+environment/logs/open-library/access.log
