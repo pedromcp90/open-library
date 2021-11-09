@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PublisherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +35,16 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Redirect to the index view in the Book controller
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function () {
     //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('book', BookController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('author', AuthorController::class);
+    Route::resource('publisher', PublisherController::class);
 
+    Route::get('navbars', 'NavbarController@index');
+    Route::get('navbars-show', 'NavbarController@show');
+    Route::post('navbars', 'NavbarController@store')->name('navbars.store');
 });
-

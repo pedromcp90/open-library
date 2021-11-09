@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->unsignedSmallInteger('publication_year')->nullable();
             $table->string('cover_image')->nullable();
             $table->unsignedBigInteger('publisher_id')->nullable();
+            $table->text('description')->nullable();
             //$table->unsignedBigInteger('category_id');
 
             //Add a publishers foreign key with on delete set null

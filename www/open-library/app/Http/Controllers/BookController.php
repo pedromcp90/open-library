@@ -137,6 +137,7 @@ class BookController extends Controller
 
     private function insertOrUpdate($request, $updateId = false)
     {
+        $categories = $authors = NULL;
         /**
          * Initialize currentbook data to make some checks on update
          */
@@ -146,6 +147,19 @@ class BookController extends Controller
          * Initialize the isbn formatter
          */
         $isbnFormatter = new IsbnTools;
+
+        /**
+         * Save the categories to insert later
+         */
+        if ($request->has('categories')) {
+            $categories = $request->input('categories');
+        }
+        /**
+         * Save the authors to insert later
+         */
+        if ($request->has('authors')) {
+            $authors = $request->input('authors');
+        }
 
         /**
          * Remove unneded fields
@@ -173,19 +187,21 @@ class BookController extends Controller
         /**
          * Validate data
          */
-        $fields = [
-            'isbn' => ['required', 'string', new CheckValidISBN, 'unique:books,isbn'],
-            'title' => 'required|string|max:255',
-            'publication_year' => 'int|max:99999|nullable',
-            'cover_image' => 'max:100000|mimes:jpeg,png,jpg|nullable'
-        ];
+        $isbnValidationRule = 'unique:books,isbn';
 
         /**
          * If the method is update, ignore the isbn unique check
          */
         if ($updateId) {
-            $fields['isbn'] .= ',' . $updateId;
+            $isbnValidationRule .= ',' . $updateId;
         }
+
+        $fields = [
+            'isbn' => ['required', 'string', new CheckValidISBN, $isbnValidationRule],
+            'title' => 'required|string|max:255',
+            'publication_year' => 'int|max:99999|nullable',
+            'cover_image' => 'max:100000|mimes:jpeg,png,jpg|nullable'
+        ];
 
         $errorMessage = [
             'required' => 'The :attribute is required',
@@ -223,15 +239,13 @@ class BookController extends Controller
         //Save the book an then add its relationships
         $book->save();
 
-        if ($request->has('categories')) {
+        if (!is_null($categories)) {
             //make categories relationships
-            $categories = $request->input('categories');
             $book->categories()->sync($categories);
         }
 
-        if ($request->has('authors')) {
-            //make author relationships
-            $authors = $request->input('authors');
+        if (!is_null($authors)) {
+            //make authors relationships
             $book->authors()->sync($authors);
         }
 
