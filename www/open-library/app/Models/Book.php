@@ -9,10 +9,10 @@ class Book extends Model
 {
     use HasFactory;
 
-    //One to one relationship with publisher
+    //One to many relationship with publisher
     public function publisher()
     {
-        return $this->hasOne(Publisher::class);
+        return $this->belongsTo(Publisher::class);
     }
 
     //Many to many relationship with authors
