@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
     @stack('head_scripts')
 
     <!-- Fonts -->
@@ -39,7 +40,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <!-- TODO: Load the menu dynamically from database -->
-                    @include('layouts.partials.nav')
+                    @guest
+                    @else
+                        @include('layouts.partials.nav')
+                    @endguest
 
                     <ul class="navbar-nav mr-auto">
                         @if (Route::has('book'))
@@ -98,9 +102,19 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
+            <div class="header bg-primary pb-6 mb-6">
+                <div class="container">
+                    <div class="header-body">
+                        <div class="row align-items-center py-4">
+                            <div class="col-lg-6 col-7">
+                                <x-breadcrumb :paths="$currentPath" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container">
-                @include('layouts.partials.breadcrumbs')
                 @yield('content')
             </div>
         </main>
