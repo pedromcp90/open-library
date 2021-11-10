@@ -7,6 +7,6 @@
 </div>
 <div class="form-group">
     <input class="btn btn-success" type="submit" value="{{ ucfirst($mode) }} category">
-    <a class="btn btn-primary return-button" href="{{ url('/category/') }}">Return</a>
+    <a class="btn btn-primary return-button" href="{{ url('/admin/category/') }}">Return</a>
 </div>
 

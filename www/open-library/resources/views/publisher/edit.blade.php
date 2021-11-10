@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @include('layouts.partials.message')
-        <form action="{{ url('/publisher/' . $publisher->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('/admin/publisher/' . $publisher->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             {{ method_field('PATCH') }}
             @include('publisher.form', ['mode' => 'edit'])

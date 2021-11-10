@@ -11,14 +11,14 @@
             <div class="modal-body ">
 
                 <div id="author-form" class="new-entry-form-wrapper">
-                    <form action="{{ url('/author') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('/admin/author') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @include('author.form', ['mode' => 'create'])
                     </form>
 
                 </div>
                 <div id="category-form" class="new-entry-form-wrapper">
-                    <form action="{{ url('/category') }}" method="post">
+                    <form action="{{ url('/admin/category') }}" method="post">
                         @csrf
                         @include('category.form', ['mode' => 'create'])
                     </form>

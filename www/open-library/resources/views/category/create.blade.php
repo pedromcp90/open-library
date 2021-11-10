@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         @include('layouts.partials.message')
-        <form action="{{ url('/category') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('/admin/category') }}" method="post" enctype="multipart/form-data">
             @csrf
             @include('category.form', ['mode' => 'create'])
         </form>

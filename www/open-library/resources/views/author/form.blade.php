@@ -1,7 +1,3 @@
-@push('head_scripts')
-    <script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
-@endpush
-
 <h1 class="form-title">{{ ucfirst($mode) }} Author</h1>
 
 <div class="form-group">
@@ -28,5 +24,5 @@
 </div>
 <div class="form-group">
     <input class="btn btn-success" type="submit" value="{{ ucfirst($mode) }} author">
-    <a class="btn btn-primary return-button" href="{{ url('/author/') }}">Return</a>
+    <a class="btn btn-primary return-button" href="{{ url('/admin/author/') }}">Return</a>
 </div>

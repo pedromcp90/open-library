@@ -1,7 +1,3 @@
-@push('head_scripts')
-    <script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
-@endpush
-
 <h1 class="form-title">{{ ucfirst($mode) }} Publisher</h1>
 
 <div class="form-group">
@@ -18,6 +14,6 @@
 
 <div class="form-group">
     <input class="btn btn-success" type="submit" value="{{ ucfirst($mode) }} publisher">
-    <a class="btn btn-primary return-button" href="{{ url('/publisher/') }}">Return</a>
+    <a class="btn btn-primary return-button" href="{{ url('/admin/publisher/') }}">Return</a>
 </div>
 
