@@ -19,7 +19,7 @@ class BookSeeder extends Seeder
     {
 
         Book::factory(50)
-            ->has(Author::factory()->count(1))
+            ->has(Author::factory()->count(3))
             ->has(Category::factory()->count(3))
             ->has(Publisher::factory()->count(1))
             ->create();
