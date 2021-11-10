@@ -15,8 +15,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'John Smith',
-            'email'=> 'admin@openlibrary.loc',
+            'first_name' => 'John',
+            'last_name' => 'Smith',
+            'phone_number' => '658741247',
+            'address' => 'Avenida Ramón y Cajal, 55, Santa Cruz de Tenerife, Spain',
+            'email' => 'admin@openlibrary.loc',
             'password' => bcrypt('admin')
         ]);
     }
