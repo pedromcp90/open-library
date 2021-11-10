@@ -47,4 +47,57 @@ class Helper
          */
         return $isbn;
     }
+
+    public static function generateNav()
+    {
+        $controllers = [
+            'book' => 'Book',
+            'author' => 'Author',
+            'category' => 'Category',
+            'publisher' => 'Publisher',
+        ];
+        $nav = [];
+        $methods = [
+            '' => 'List',
+            'create' => 'Create'
+        ];
+        foreach ($controllers as $controllerPath => $controllerName) {
+            $children = [];
+            foreach ($methods as $methodPath => $methodName) {
+                $children[] = [
+                    'text' => $methodName,
+                    'url' => '/admin/' . $controllerPath . '/' . $methodPath
+                ];
+            }
+
+            $nav[] = [
+                'text' => $controllerName,
+                'url' => '/admin/' . $controllerPath,
+                'children' => $children
+            ];
+        }
+        return $nav;
+    }
+
+    public static function getElementTitleById($id, $route)
+    {
+
+        $class = "\\App\Models\\" . ucfirst($route);
+        $instance = new $class();
+        $item = $instance->find($id);
+        if (method_exists($item, 'getName')) {
+            return $item->getName();
+        }
+    }
+    /**
+     * Returns the current path structure.
+     * Used for builing breadcrumbs component
+     */
+    public static function getPathInfoAsArray()
+    {
+        $path = request()->path();
+
+        //If the path is the home then return an empty array for breadcrumbs
+        return ($path  != "/") ? explode('/', $path) : [];
+    }
 }
