@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models;
+use App\Models\Author;
+use App\Models\Category;
 use App\Models\Navbar;
 //use Illuminate\View\View;
 use View;
@@ -32,8 +35,37 @@ class AppServiceProvider extends ServiceProvider
 
         //Add the navigation elements
         View::composer('*', function ($view) {
-            $navbars = Navbar::orderBy('ordering')->get();
-            $view->with('navbars', $navbars);
+            //$navbars = Navbar::orderBy('ordering')->get();
+            //$view->with('navbars', $navbars);
+
+            $controllers = [
+                'book' => 'Book',
+                'author' => 'Author',
+                'category' => 'Category',
+                'publisher' => 'Publisher',
+            ];
+            $nav = [];
+            $methods = [
+                '' => 'List',
+                'create' => 'Create'
+            ];
+            foreach ($controllers as $controllerPath => $controllerName) {
+                $children = [];
+                foreach ($methods as $methodPath => $methodName) {
+                    $children[] = [
+                        'text' => $methodName,
+                        'url' => '/'.$controllerPath . '/' . $methodPath
+                    ];
+                }
+
+                $nav[] = [
+                    'text' => $controllerName,
+                    'url' => $controllerPath,
+                    'children' => $children
+                ];
+            }
+
+            $view->with('navbars', $nav);
         });
     }
 }
