@@ -104,7 +104,7 @@ class PublisherController extends Controller
 
         $fields = [
             'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255'
+            'address' => 'required|string|max:255'
         ];
 
         $errorMessage = [
