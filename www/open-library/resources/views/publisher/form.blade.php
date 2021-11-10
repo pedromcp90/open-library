@@ -11,9 +11,9 @@
 </div>
 
 <div class="form-group">
-    <label for="city">City</label>
-    <input type="text" class="form-control" name="city" id="city"
-        value="{{ isset($publisher->city) ? $publisher->city : old('city') }}">
+    <label for="address">Address</label>
+    <input type="text" class="form-control" name="address" id="address"
+        value="{{ isset($publisher->address) ? $publisher->address : old('address') }}">
 </div>
 
 <div class="form-group">

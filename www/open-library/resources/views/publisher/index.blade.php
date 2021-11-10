@@ -10,7 +10,7 @@
                         <tr>
                             <th scope="col" class="sort" data-sort="id">ID</th>
                             <th>Publisher</th>
-                            <th>City</th>
+                            <th>Address</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -19,7 +19,7 @@
                             <tr>
                                 <td class="id">{{ $publisher->id }}</td>
                                 <td class="name">{{ $publisher->name }}</td>
-                                <td class="city">{{ $publisher->city }}</td>
+                                <td class="address">{{ $publisher->address }}</td>
                                 <td>
                                     <a class="btn btn-info" href="{{ url('/publisher/' . $publisher->id . '/edit') }}">Edit</a>
                                     <form action="{{ url('publisher/' . $publisher->id) }}" method="post" class="d-inline">
