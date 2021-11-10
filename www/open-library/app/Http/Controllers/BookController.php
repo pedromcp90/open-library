@@ -170,7 +170,7 @@ class BookController extends Controller
          * If we do not format it before validating, it will pass the unique validation
          * since that record does not exist without hypens
          */
-        if (isset($bookData['isbn'])) {
+        if (isset($bookData['isbn']) && $isbnFormatter->isValidIsbn($bookData['isbn'])) {
             $bookData['isbn'] = $isbnFormatter->format($bookData['isbn']);
             $request->replace($bookData);
         }
@@ -250,6 +250,6 @@ class BookController extends Controller
 
         $action = empty($updateId) ? 'created' : 'updated';
 
-        return redirect('book/')->with('message', 'Book ' . $action . ' successfully');
+        return redirect('/admin/book/')->with('message', 'Book ' . $action . ' successfully');
     }
 }
