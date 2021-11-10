@@ -14,36 +14,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
-            'Adventures',
-            'Audiobook',
-            'Biography',
-            'Classics',
-            'Comics',
-            'Cook books',
-            'Dictionary',
-            'E-book',
-            'Encyclopedias',
-            'Fairy tales',
-            'Historical novels',
-            'History',
-            'Holy bibble',
-            'Koran',
-            'Love',
-            'Mystery',
-            'Philosophy',
-            'Pocket books',
-            'Poetry',
-            'Politics',
-            'Science fiction',
-            'Self-aid',
-            'Torah',
-            'Travel guide'
-        ];
-        foreach ($categories as $key => $value) {
-            DB::table('categories')->insert([
-                'name' => $value
-            ]);
-        }
+        //Categories are being generated from BookSeeder
     }
 }

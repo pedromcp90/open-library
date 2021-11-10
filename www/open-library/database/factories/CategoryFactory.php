@@ -3,10 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-/**
- * This factory creates fake Authors to populate the database
- */
-class AuthorFactory extends Factory
+
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,8 +14,7 @@ class AuthorFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName()
+            'name'   => $this->faker->sentence(2)
         ];
     }
 }
