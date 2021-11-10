@@ -29,12 +29,12 @@ $breadcrumbs = [
                                             src="{{ asset('img') . '/no-book-cover-available.jpg' }}" alt="Book cover">
                                     @else
                                         <img class="img-thumbnail img-fluid" width="100px"
-                                            src="{{ asset('storage') . '/' . $book->cover_image }}" alt="Book cover">
+                                            src="{{ Helper::parseImageUri($book->cover_image) }}" alt="Book cover">
 
                                     @endif
                                 </td>
                                 <td class="id">{{ $book->id }}</td>
-                                <td class="isbn">{{ $book->isbn }}</td>
+                                <td class="isbn">{{ Helper::formatISBN($book->isbn) }}</td>
                                 <td class="title">{{ $book->title }}</td>
                                 <td class="publication_year">{{ $book->publication_year }}</td>
                                 <td>

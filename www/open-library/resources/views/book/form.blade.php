@@ -58,7 +58,7 @@
 <div class="form-group">
     <label for="cover_image">Cover Image</label>
     @if (isset($book) && !empty($book->cover_image))
-        <img class="img-thumbnail" width="100px" src="{{ asset('storage') . '/' . $book->cover_image }}"
+        <img class="img-thumbnail" width="100px" src="{{ Helper::parseImageUri($book->cover_image) }}"
             alt="Book cover">
         <br>
     @endif

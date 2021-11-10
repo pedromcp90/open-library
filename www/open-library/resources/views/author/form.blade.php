@@ -19,7 +19,7 @@
 <div class="form-group">
     <label for="author_image">Author Image</label>
     @if (isset($author) && !empty($author->author_image))
-        <img class="img-thumbnail" width="100px" src="{{ asset('storage') . '/' . $author->author_image }}"
+        <img class="img-thumbnail" width="100px" src="{{ Helper::parseImageUri($author->author_image) }}"
             alt="Author image">
         <br>
     @endif
@@ -30,4 +30,3 @@
     <input class="btn btn-success" type="submit" value="{{ ucfirst($mode) }} author">
     <a class="btn btn-primary return-button" href="{{ url('/author/') }}">Return</a>
 </div>
-

@@ -24,7 +24,7 @@
                                             src="{{ asset('img') . '/blank-profile-image.png' }}" alt="Book author">
                                     @else
                                         <img class="img-thumbnail rounded-circle" width="100px"
-                                            src="{{ asset('storage') . '/' . $author->author_image }}" alt="Book author">
+                                            src="{{ Helper::parseImageUri($author->author_image) }}" alt="Book author">
 
                                     @endif
                                 </td>
