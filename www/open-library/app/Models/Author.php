@@ -14,4 +14,14 @@ class Author extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+
+    /**
+     * Return a name for this model
+     *
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->getAttributeValue('first_name') . " ". $this->getAttributeValue('last_name');
+    }
 }

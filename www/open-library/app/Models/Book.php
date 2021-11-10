@@ -26,4 +26,14 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    /**
+     * Return a name for this model
+     *
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->getAttributeValue('title');
+    }
 }
