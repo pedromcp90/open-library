@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::paginate(10);
+        $data['categories'] = Category::all();
         return view('category.index', $data);
     }
 
@@ -90,7 +90,7 @@ class CategoryController extends Controller
     {
         Category::findOrFail($id);
         Category::destroy($id);
-        return redirect('category')->with('message', 'Category deleted successfully');
+        return redirect('admin/category')->with('message', 'Category deleted successfully');
     }
 
     private function insertOrUpdate($request, $updateId = false)
@@ -125,6 +125,6 @@ class CategoryController extends Controller
 
         $action = empty($updateId) ? 'created' : 'updated';
 
-        return redirect('category/')->with('message', 'Category ' . $action . ' successfully');
+        return redirect('admin/category/')->with('message', 'Category ' . $action . ' successfully');
     }
 }

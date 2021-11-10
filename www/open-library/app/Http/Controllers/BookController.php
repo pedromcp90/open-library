@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Rules\CheckValidISBN;
 use Nicebooks\Isbn\IsbnTools;
@@ -19,9 +20,21 @@ class BookController extends Controller
      */
     public function index()
     {
-        $data['books'] = Book::paginate(10);
+        $data['books'] = Book::all();
         return view('book.index', $data);
     }
+    /**
+     * Display a listing of books.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function publicIndex()
+    {
+        $data['books'] = Book::all();
+        return view('book.publicIndex', $data);
+    }
+
+
 
     /**
      * Show the form for creating a new book.
@@ -30,8 +43,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $data['authors'] = Author::all();
-        $data['categories'] = Category::all();
+        $data = self::populateRelatedFields();
         return view('book.create', $data);
     }
 
@@ -54,9 +66,11 @@ class BookController extends Controller
      */
     public function show(Int $bookId)
     {
-        return view('book.show', [
-            'user' => $bookId
-        ]);
+        $book = Book::findOrFail($bookId);
+        $publisher = Publisher::findOrFail($book->publisher_id);
+
+        //$related_books = Book::
+        return view('book.show', ['book' => $book, 'publisher' =>$publisher]);
     }
 
     /**
@@ -73,6 +87,7 @@ class BookController extends Controller
         $data['book'] = $book;
         $data['selected_authors'] = self::getSelectedAuthorsIds($book);
         $data['selected_categories'] = self::getSelectedCategoriesIds($book);
+        $data['publisher'] = $book->publisher();
         //return view('book.edit', compact('book'));
         return view('book.edit', $data);
     }
@@ -81,6 +96,7 @@ class BookController extends Controller
     {
         $data['authors'] = Author::all();
         $data['categories'] = Category::all();
+        $data['publishers'] = Publisher::all();
         return $data;
     }
     public static function getSelectedAuthorsIds(Book $book)
@@ -128,10 +144,10 @@ class BookController extends Controller
         $book = Book::findOrFail($bookId);
         //Check if the image could be deleted and then delete the Book
         if (!empty($book->book_image) && !Storage::delete('public/' . $book->book_image)) {
-            return redirect('book/' . $book->id . '/edit')->with('error', 'Error while deleting the book cover, please try again later. If the problem persists contact an administrator');
+            return redirect('admin/book/' . $book->id . '/edit')->with('error', 'Error while deleting the book cover, please try again later. If the problem persists contact an administrator');
         }
         Book::destroy($bookId);
-        return redirect('book')->with('message', 'Book deleted successfully');
+        return redirect('admin/book')->with('message', 'Book deleted successfully');
     }
 
     private function insertOrUpdate($request, $updateId = false)
@@ -197,7 +213,8 @@ class BookController extends Controller
 
         $fields = [
             'isbn' => ['required', 'string', new CheckValidISBN, $isbnValidationRule],
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|min:2|max:255',
+            'description' => 'required|string|min:3|max:1000',
             'publication_year' => 'int|max:99999|nullable',
             'cover_image' => 'max:100000|mimes:jpeg,png,jpg|nullable'
         ];
@@ -250,6 +267,6 @@ class BookController extends Controller
 
         $action = empty($updateId) ? 'created' : 'updated';
 
-        return redirect('/admin/book/')->with('message', 'Book ' . $action . ' successfully');
+        return redirect('admin/book/' . $book->id . '/edit')->with('message', 'Book ' . $action . ' successfully');
     }
 }

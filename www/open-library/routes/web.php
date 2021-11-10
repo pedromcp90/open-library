@@ -23,28 +23,23 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-//Route::resource('user', UserController::class);
-
-//Add Book Routes
-//Route::resource('book', BookController::class)->middleware('auth');
 
 //Authentication routes
 Auth::routes();
 
-//The route to the home
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Public path to list books, authors,
+Route::get('/book', [BookController::class, 'publicIndex']);
+Route::get('/book/{id}', [BookController::class, 'show']);
+Route::get('/author/{id}', [AuthorController::class, 'show']);
 
-//Redirect to the index view in the Book controller
 Route::group(['middleware' => 'auth'], function () {
-    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    //Home Route
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::resource('book', BookController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('author', AuthorController::class);
-    Route::resource('publisher', PublisherController::class);
+    //Admin paths to edit or create
+    Route::get('/admin', [HomeController::class, 'admin'])->name('admin');
+    Route::resource('admin/book', BookController::class);
+    Route::resource('admin/category', CategoryController::class);
+    Route::resource('admin/author', AuthorController::class);
+    Route::resource('admin/publisher', PublisherController::class);
 
-    Route::get('navbars', 'NavbarController@index');
-    Route::get('navbars-show', 'NavbarController@show');
-    Route::post('navbars', 'NavbarController@store')->name('navbars.store');
 });

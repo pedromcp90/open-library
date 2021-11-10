@@ -16,7 +16,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $data['publishers'] = Publisher::paginate(10);
+        $data['publishers'] = Publisher::all();
         return view('publisher.index', $data);
     }
 
@@ -90,7 +90,7 @@ class PublisherController extends Controller
     {
         Publisher::findOrFail($id);
         Publisher::destroy($id);
-        return redirect('publisher')->with('message', 'Publisher deleted successfully');
+        return redirect('admin/publisher')->with('message', 'Publisher deleted successfully');
     }
 
     private function insertOrUpdate($request, $updateId = false)
@@ -126,6 +126,6 @@ class PublisherController extends Controller
 
         $action = empty($updateId) ? 'created' : 'updated';
 
-        return redirect('publisher/')->with('message', 'Publisher ' . $action . ' successfully');
+        return redirect('admin/publisher/')->with('message', 'Publisher ' . $action . ' successfully');
     }
 }

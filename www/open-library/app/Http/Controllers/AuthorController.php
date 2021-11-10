@@ -16,7 +16,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $data['authors'] = Author::paginate(10);
+        $data['authors'] = Author::all();
         return view('author.index', $data);
     }
 
@@ -91,10 +91,10 @@ class AuthorController extends Controller
         $author = Author::findOrFail($id);
         //Check if the image could be deleted amd then delete the Author
         if (!empty($author->author_image) && !Storage::delete('public/' . $author->author_image)) {
-            return redirect('author/' . $author->id . '/edit')->with('error', 'Error while deleting the author image, please try again later. If the problem persists contact an administrator');
+            return redirect('admin/author/' . $author->id . '/edit')->with('error', 'Error while deleting the author image, please try again later. If the problem persists contact an administrator');
         }
         Author::destroy($id);
-        return redirect('author')->with('message', 'Author deleted successfully');
+        return redirect('admin/author')->with('message', 'Author deleted successfully');
     }
 
     private function insertOrUpdate($request, $updateId = false)
@@ -162,6 +162,6 @@ class AuthorController extends Controller
 
         $action = empty($updateId) ? 'created' : 'updated';
 
-        return redirect('author/')->with('message', 'Author ' . $action . ' successfully');
+        return redirect('admin/author/')->with('message', 'Author ' . $action . ' successfully');
     }
 }
