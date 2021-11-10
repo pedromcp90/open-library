@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+@php
+$breadcrumbs = [
+    url('/book') => 'Book'
+];
+@endphp
 @section('content')
     <div class="container">
         @include('layouts.partials.message')
