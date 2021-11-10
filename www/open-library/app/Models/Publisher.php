@@ -12,6 +12,6 @@ class Publisher extends Model
     //Many to many relationship with Books
     public function books()
     {
-        return $this->belongsToMany(Book::class);
+        return $this->hasMany(Book::class);
     }
 }
