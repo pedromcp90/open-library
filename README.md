@@ -18,9 +18,13 @@ _What do you need to start the project and how to install them_
 Step by step of what you must run to have the project running.
 
  1. First of all, clone this repository in your system.
-    ```git clone https://github.com/pedromcp90/open-library.git```
+   ```
+   git clone https://github.com/pedromcp90/open-library.git
+   ```
  2. Enter the repository folder and execute *build.sh*
-    ```sudo ./build.sh```
+   ```
+   sudo ./build.sh
+   ```
  3. Open your browser and navigate to [http://localhost:8080/](http://localhost:8080/)
  4. Ready, you can now view and interact with the project locally.
 
