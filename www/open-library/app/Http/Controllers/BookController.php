@@ -67,10 +67,8 @@ class BookController extends Controller
     public function show(Int $bookId)
     {
         $book = Book::findOrFail($bookId);
-        $publisher = Publisher::findOrFail($book->publisher_id);
-
-        //$related_books = Book::
-        return view('book.show', ['book' => $book, 'publisher' =>$publisher]);
+        //TODO: get related books and send to the view
+        return view('book.show', ['book' => $book]);
     }
 
     /**
