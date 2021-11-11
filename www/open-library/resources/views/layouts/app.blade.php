@@ -114,9 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                @yield('content')
-            </div>
+            @yield('content')
         </main>
         <footer class="footer pt-0 mt-auto">
             @include('layouts.partials.footer')
