@@ -1,11 +1,11 @@
 #!/bin/bash
 
-printf "\n## INSTALANDO UTILES ##\n"
+printf "\n## INSTALLING UTILITIES ##\n"
 apt-get -y update
 apt-get -y install wget curl
 #-----------------------------------------------------------------
 
-printf "\n## INSTALANDO DOCKER ##\n"
+printf "\n## INSTALLING DOCKER ##\n"
     apt-get -yq install \
     apt-transport-https \
     ca-certificates \
@@ -26,7 +26,7 @@ sudo usermod -aG docker $USER
 
 #-----------------------------------------------------------------
 
-printf "\n## INSTLANDO DOCKER COMPOSE ##\n"
+printf "\n## INSTALLING DOCKER COMPOSE ##\n"
 sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
@@ -36,19 +36,18 @@ docker-compose --version
 
 chmod -R 777 ../logs
 
-printf "\n## AÑADIENDO RESOLUCIÓN DE NOMBRES .LOC ##\n"
+printf "\n## ADDING LOCAL NAMES TO HOSTS FILE ##\n"
 echo "172.20.1.1   openlibrary.loc" >> /etc/hosts
 echo "172.20.1.1   www.openlibrary.loc" >> /etc/hosts
 #-----------------------------------------------------------------
 
 
-printf "\n## LEVANTANDO CONTENEDORES ##\n"
+printf "\n## STARTING CONTAINERS ##\n"
 cd .. && docker-compose up -d
 docker-compose ps
 #-----------------------------------------------------------------
 
 
 
-echo "FIN [Enter]"
+echo "END [Enter]"
 read
-#reboot
