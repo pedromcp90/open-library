@@ -50,29 +50,60 @@ class Helper
 
     public static function generateNav()
     {
-        $controllers = [
-            'book' => 'Book',
-            'author' => 'Author',
-            'category' => 'Category',
-            'publisher' => 'Publisher',
-        ];
         $nav = [];
-        $methods = [
-            '' => 'List',
-            'create' => 'Create'
+        $nav[] = [
+            'text' => 'Admin',
+            'icon' => 'fa fa-cogs',
+            'url' => '/admin'
         ];
-        foreach ($controllers as $controllerPath => $controllerName) {
+        $controllers = [
+            [
+                'route' => '/admin/book',
+                'name' => 'Book',
+                'icon' => 'fa fa-book'
+            ],
+            [
+                'route' => '/admin/author',
+                'name' => 'Author',
+                'icon' => 'fa fa-user-edit'
+            ],
+            [
+                'route' => '/admin/category',
+                'name' => 'Category',
+                'icon' => 'fa fa-th-large'
+            ],
+            [
+                'route' => '/admin/publisher',
+                'name' => 'Publisher',
+                'icon' => 'fa fa-user-tie'
+            ]
+        ];
+
+        $methods = [
+            [
+                'route' => '',
+                'name' => 'List'
+            ],
+            [
+                'route' => 'create',
+                'name' => 'Create'
+            ]
+        ];
+        foreach ($controllers as $controller) {
             $children = [];
-            foreach ($methods as $methodPath => $methodName) {
+
+            foreach ($methods as  $method) {
                 $children[] = [
-                    'text' => $methodName,
-                    'url' => '/admin/' . $controllerPath . '/' . $methodPath
+                    'text' => $method['name'],
+                    'icon' => isset($method['icon']) ? $method['icon'] : '',
+                    'url' =>  $controller['route'] . '/' . $method['route']
                 ];
             }
 
             $nav[] = [
-                'text' => $controllerName,
-                'url' => '/admin/' . $controllerPath,
+                'text' => $controller['name'],
+                'icon' => isset($controller['icon']) ? $controller['icon'] : '',
+                'url' =>  $controller['route'],
                 'children' => $children
             ];
         }
