@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Book;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
 {
@@ -44,4 +46,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Many to many relationship with books
+    public function books()
+    {
+        return $this->belongsToMany(Book::class)->withPivot('id', 'reserve_date', 'due_date', 'return_date')->as('reservation');
+    }
+
+    /**
+     * Return a name for this model
+     *
+     * @return String
+     */
+    public function getName()
+    {
+        return $this->getAttributeValue('first_name') . " " . $this->getAttributeValue('last_name');
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
@@ -26,6 +27,13 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    //Many to many relationship with users
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('id', 'reserve_date', 'due_date','return_date')->as('reservation');
+    }
+
 
     /**
      * Return a name for this model

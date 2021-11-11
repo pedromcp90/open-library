@@ -33,8 +33,9 @@ class HomeController extends Controller
      */
     public function admin()
     {
-        return view('admin');
+        $data = new BookUserController();
+        $view = $data->index();
+
+        return view('admin', $view->getData());
     }
-
-
 }
