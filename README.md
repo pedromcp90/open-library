@@ -18,13 +18,19 @@ _What do you need to start the project and how to install them_
 Step by step of what you must run to have the project running.
 
  1. First of all, clone this repository in your system.
-    ```git clone https://github.com/pedromcp90/open-library.git```
+    ```
+    git clone https://github.com/pedromcp90/open-library.git
+    ```
  2. Enter the repository folder and navigate to environment.
-    ``` cd environment```
+    ```
+    cd environment
+    ```
  3. Run docker-compose.
-    ```docker-compose up -d```
+    ```
+    docker-compose up -d
+    ```
  5. Open your browser and navigate to [http://localhost:8080/](http://localhost:8080/)
- 6. Ready, you can now view and interact with the project locally
+ 6. Ready, you can now view and interact with the project locally.
 
 ## Built with 🛠️
 
