@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Helpers\Helper;
 use View;
+use App\Helpers\Helper;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //Add pagination
-        //Paginator::useBootstrap();
+        Paginator::useBootstrap();
 
         //Add the navigation elements
         View::composer('*', function ($view) {

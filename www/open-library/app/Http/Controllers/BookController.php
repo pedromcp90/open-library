@@ -30,7 +30,8 @@ class BookController extends Controller
      */
     public function publicIndex()
     {
-        $data['books'] = Book::all();
+        //Added book pagination
+        $data['books'] = Book::paginate(12);
         return view('book.publicIndex', $data);
     }
 
