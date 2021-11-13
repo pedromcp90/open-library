@@ -8,8 +8,7 @@ services:
             - ../www:/var/www/html
             - ./conf/apache/php/php.ini:/usr/local/etc/php/php.ini
             - ./conf/apache/php/99-custom.ini:/usr/local/etc/php/conf.d/99-custom.ini
-            - ./conf/apache/sites/:/etc/apache2/sites-enabled/
-            - ./logs:/var/www/logs
+            - ./conf/apache/sites/:/etc/apache2/sites-enabled/            
         links:
             - db
         networks:
