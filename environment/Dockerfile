@@ -12,3 +12,4 @@ RUN a2enmod rewrite
 RUN chown -R "$APACHE_RUN_USER:$APACHE_RUN_GROUP" /var/www/ \
 # allow running as an arbitrary user (https://github.com/docker-library/php/issues/7430)
 && chmod 1777 /var/www/
+RUN mkdir -p /var/www/logs/open-library/
