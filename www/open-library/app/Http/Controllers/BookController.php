@@ -141,8 +141,10 @@ class BookController extends Controller
     public function destroy($bookId)
     {
         $book = Book::findOrFail($bookId);
-        //Check if the image could be deleted and then delete the Book
-        if (!empty($book->book_image) && !Storage::delete('public/' . $book->book_image)) {
+        //Check if the image exists and could be deleted, then delete the Book
+        if (!empty($book->book_image)
+            && file_exists(url('public/' . $book->book_image))
+            && !Storage::delete('public/' . $book->book_image)) {
             return redirect('admin/book/' . $book->id . '/edit')->with('error', 'Error while deleting the book cover, please try again later. If the problem persists contact an administrator');
         }
         Book::destroy($bookId);

@@ -89,8 +89,10 @@ class AuthorController extends Controller
     public function destroy($id)
     {
         $author = Author::findOrFail($id);
-        //Check if the image could be deleted amd then delete the Author
-        if (!empty($author->author_image) && !Storage::delete('public/' . $author->author_image)) {
+        //Check if the image exists and could be deleted, then delete the Author
+        if (!empty($author->author_image)
+            && file_exists(url('public/' . $author->author_image))
+            && !Storage::delete('public/' . $author->author_image)) {
             return redirect('admin/author/' . $author->id . '/edit')->with('error', 'Error while deleting the author image, please try again later. If the problem persists contact an administrator');
         }
         Author::destroy($id);
