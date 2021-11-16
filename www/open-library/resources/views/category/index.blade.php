@@ -20,7 +20,7 @@
                                 <a class="btn btn-sm btn-info" href="{{ url('/admin/category/' . $category->id . '/edit') }}"
                                     data-toggle="tooltip" data-placement="bottom" title="Edit"><i
                                         class="fa fa-pen"></i></a>
-                                <form action="{{ url('category/' . $category->id) }}" method="post"
+                                <form action="{{ url('admin/category/' . $category->id) }}" method="post"
                                     class="d-inline">
                                     @csrf
                                     {{ method_field('DELETE') }}
