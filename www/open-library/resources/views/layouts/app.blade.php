@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('libraries/chosen/chosen.jquery.min.js') }}"></script>
+
     @stack('head_scripts')
 
     <!-- Fonts -->

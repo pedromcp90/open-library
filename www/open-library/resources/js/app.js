@@ -6,6 +6,7 @@ import Pluralize from '../vendor/pluralize';
 window.Pluralize = Pluralize;
 window.DataTable = require( 'datatables.net' );
 
+require('chosen-js')
 require('datatables.net-select')
 require('datatables.net-select-bs4')
 require('datatables.net-buttons')
